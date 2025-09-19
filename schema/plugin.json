@@ -1,0 +1,15 @@
+{
+  "jupyter.lab.shortcuts": [],
+  "title": "llm_complete",
+  "description": "llm_complete settings.",
+  "type": "object",
+  "properties": {
+    "userVariable": {
+      "type": "string",
+      "title": "Anthropic API Key",
+      "description": "API key for llm querying",
+      "default": "paste your API key here"
+    }
+  },
+  "additionalProperties": false
+}

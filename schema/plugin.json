@@ -9,6 +9,12 @@
       "title": "Anthropic API Key",
       "description": "API key for llm querying",
       "default": "paste your API key here"
+    },
+    "modelName": {
+    	"type": "string",
+	"title": "Model Name",
+	"description": "select which model to use",
+	"default": "claude-sonnet-4-20250514"
     }
   },
   "additionalProperties": false

@@ -24,12 +24,14 @@ const plugin: JupyterFrontEndPlugin<void> = {
   ) => {
     console.log('Activating extension llm_complete.');
     const apiKeys: string[] = [];
-
+    const modelSelections: string[] = [];
+    
     await settingRegistry
       .load(plugin.id)
       .then(settings => {
         console.log('llm_complete settings loaded:', settings.composite);
         apiKeys.push(settings.composite.userVariable as string);
+        modelSelections.push(settings.composite.modelName as string);
       })
       .catch(reason => {
         console.error('Failed to load settings for llm_complete.', reason);
@@ -43,19 +45,25 @@ const plugin: JupyterFrontEndPlugin<void> = {
 
     async function queryLLM(prompt: string, assistantPrompt: string) {
       const message = await anthropicClient.messages.create({
-        max_tokens: 1024,
+        max_tokens: 12000,
         messages: [
           { role: 'user', content: prompt.trim() },
           { role: 'assistant', content: assistantPrompt.trim() }
         ],
-        model: 'claude-3-5-sonnet-latest'
+        model: modelSelections[0],
+	//reasoning: {
+	//  enabled: true,
+	//  max_tokens: 8000
+	//}
       });
-      const contentBlock = message.content[0];
-      if (contentBlock.type === 'text') {
-        return contentBlock.text;
-      } else {
-        return 'ERR: got a block type other than text!';
-      }
+      //for (const contentBlock in message.content) {
+      //  if (contentBlock.type === 'text') {
+      //    return contentBlock.text;
+      //}
+      //}
+      //return 'ERR: got a block type other than text!';
+      let contentBlock = message.content[0];
+      return (contentBlock.type === 'text') ? contentBlock.text : 'ERR wrong block type';
     }
 
     // Add the command

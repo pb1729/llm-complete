@@ -2,7 +2,11 @@
 
 [![Github Actions Status](/workflows/Build/badge.svg)](/actions/workflows/build.yml)
 
-A JupyterLab extension.
+A JupyterLab extension that let's you ask Claude to write python code directly into cells in your Jupyter notebook.
+
+Add your API key in settings (you may need to refresh the page after the first time you do this).
+
+Put instructions in comments, and type `Ctl-Shift-Enter` to generate.
 
 ## Requirements
 

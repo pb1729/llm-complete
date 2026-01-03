@@ -51,17 +51,17 @@ const plugin: JupyterFrontEndPlugin<void> = {
           { role: 'assistant', content: assistantPrompt.trim() }
         ],
         model: modelSelections[0],
-	//reasoning: {
-	//  enabled: true,
-	//  max_tokens: 8000
-	//}
+	      reasoning: {
+	        enabled: true,
+	        max_tokens: 8000
+        }
       });
-      //for (const contentBlock in message.content) {
-      //  if (contentBlock.type === 'text') {
-      //    return contentBlock.text;
-      //}
-      //}
-      //return 'ERR: got a block type other than text!';
+      for (const contentBlock in message.content) {
+        if (contentBlock.type === 'text') {
+          return contentBlock.text;
+        }
+      }
+      return 'ERR: got a block type other than text!';
       let contentBlock = message.content[0];
       return (contentBlock.type === 'text') ? contentBlock.text : 'ERR wrong block type';
     }
